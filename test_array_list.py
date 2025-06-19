@@ -54,3 +54,37 @@ def test_findFirst_and_findLast():
     assert lst.findFirst('x') == 0
     assert lst.findLast('x') == 2
     assert lst.findFirst('q') == -1
+
+def test_clone_independence():
+    lst = ArrayList()
+    lst.append('a')
+    copy = lst.clone()
+    copy.append('b')
+    assert lst.length() == 1
+    assert copy.length() == 2
+
+def test_clear():
+    lst = ArrayList()
+    lst.append('a')
+    lst.clear()
+    assert lst.length() == 0
+
+def test_reverse():
+    lst = ArrayList()
+    for c in ['a', 'b', 'c']:
+        lst.append(c)
+    lst.reverse()
+    assert lst.get(0) == 'c'
+    assert lst.get(1) == 'b'
+    assert lst.get(2) == 'a'
+
+def test_extend():
+    lst1 = ArrayList()
+    lst2 = ArrayList()
+    lst1.append('x')
+    lst2.append('y')
+    lst1.extend(lst2)
+    assert lst1.length() == 2
+    assert lst1.get(1) == 'y'
+    lst2.append('z')
+    assert lst1.length() == 2  # lst1 should not be affected by lst2

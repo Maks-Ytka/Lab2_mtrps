@@ -37,3 +37,19 @@ class ArrayList:
             if self.data[i] == element:
                 return i
         return -1
+
+    def clone(self):
+        cloned = ArrayList()
+        cloned.data = self.data.copy()
+        return cloned
+
+    def clear(self):
+        self.data = []
+
+    def reverse(self):
+        self.data.reverse()
+
+    def extend(self, elements):
+        if not isinstance(elements, ArrayList):
+            raise TypeError("Argument must be of type ArrayList")
+        self.data += elements.data.copy()
