@@ -47,3 +47,42 @@ def test_deleteAll():
     assert dll.length() == 2
     assert dll.get(0) == 'b'
     assert dll.get(1) == 'c'
+
+def test_clone_and_independence():
+    dll = DoublyLinkedList()
+    dll.append('a')
+    copy = dll.clone()
+    copy.append('b')
+    assert dll.length() == 1
+    assert copy.length() == 2
+
+def test_reverse():
+    dll = DoublyLinkedList()
+    for c in ['a', 'b', 'c']:
+        dll.append(c)
+    dll.reverse()
+    assert dll.get(0) == 'c'
+    assert dll.get(2) == 'a'
+
+def test_findFirst_and_findLast():
+    dll = DoublyLinkedList()
+    for c in ['x', 'y', 'x', 'z']:
+        dll.append(c)
+    assert dll.findFirst('x') == 0
+    assert dll.findLast('x') == 2
+    assert dll.findFirst('q') == -1
+
+def test_clear():
+    dll = DoublyLinkedList()
+    dll.append('a')
+    dll.clear()
+    assert dll.length() == 0
+
+def test_extend():
+    dll1 = DoublyLinkedList()
+    dll2 = DoublyLinkedList()
+    dll1.append('a')
+    dll2.append('b')
+    dll1.extend(dll2)
+    assert dll1.length() == 2
+    assert dll1.get(1) == 'b'

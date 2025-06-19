@@ -106,3 +106,51 @@ class DoublyLinkedList:
                 current = next_node
             else:
                 current = current.next
+
+    def clone(self):
+        new_list = DoublyLinkedList()
+        current = self.head
+        while current:
+            new_list.append(current.value)
+            current = current.next
+        return new_list
+
+    def reverse(self):
+        current = self.head
+        self.head, self.tail = self.tail, self.head
+        while current:
+            current.prev, current.next = current.next, current.prev
+            current = current.prev
+
+    def findFirst(self, element):
+        current = self.head
+        index = 0
+        while current:
+            if current.value == element:
+                return index
+            current = current.next
+            index += 1
+        return -1
+
+    def findLast(self, element):
+        current = self.tail
+        index = self._length - 1
+        while current:
+            if current.value == element:
+                return index
+            current = current.prev
+            index -= 1
+        return -1
+
+    def clear(self):
+        self.head = None
+        self.tail = None
+        self._length = 0
+
+    def extend(self, other):
+        if not isinstance(other, DoublyLinkedList):
+            raise TypeError("extend expects a DoublyLinkedList")
+        current = other.head
+        while current:
+            self.append(current.value)
+            current = current.next
