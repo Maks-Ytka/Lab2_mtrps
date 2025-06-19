@@ -31,3 +31,78 @@ class DoublyLinkedList:
         for _ in range(index):
             current = current.next
         return current.value
+
+    def insert(self, element, index):
+        if index < 0 or index > self._length:
+            raise IndexError("Index out of bounds")
+
+        new_node = Node(element)
+
+        if index == self._length:
+            self.append(element)
+            return
+
+        if index == 0:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+        else:
+            current = self.head
+            for _ in range(index):
+                current = current.next
+            prev_node = current.prev
+
+            prev_node.next = new_node
+            new_node.prev = prev_node
+
+            new_node.next = current
+            current.prev = new_node
+
+        self._length += 1
+
+    def delete(self, index):
+        if index < 0 or index >= self._length:
+            raise IndexError("Index out of bounds")
+
+        if index == 0:
+            value = self.head.value
+            self.head = self.head.next
+            if self.head:
+                self.head.prev = None
+            else:
+                self.tail = None
+        elif index == self._length - 1:
+            value = self.tail.value
+            self.tail = self.tail.prev
+            if self.tail:
+                self.tail.next = None
+            else:
+                self.head = None
+        else:
+            current = self.head
+            for _ in range(index):
+                current = current.next
+            value = current.value
+            current.prev.next = current.next
+            current.next.prev = current.prev
+
+        self._length -= 1
+        return value
+
+    def deleteAll(self, element):
+        current = self.head
+        while current:
+            if current.value == element:
+                next_node = current.next
+                if current.prev:
+                    current.prev.next = current.next
+                else:
+                    self.head = current.next
+                if current.next:
+                    current.next.prev = current.prev
+                else:
+                    self.tail = current.prev
+                self._length -= 1
+                current = next_node
+            else:
+                current = current.next
