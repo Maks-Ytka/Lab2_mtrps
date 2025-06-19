@@ -88,6 +88,3 @@ def test_extend():
     assert lst1.get(1) == 'y'
     lst2.append('z')
     assert lst1.length() == 2  # lst1 should not be affected by lst2
-
-def test_fail_example():
-    assert False, "This test is supposed to fail"
